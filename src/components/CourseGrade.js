@@ -1,4 +1,5 @@
 import {useState} from "react"
+import Typography from '@material-ui/core/Typography';
 
 
 const CourseGrade =({ courses })=>{
@@ -21,7 +22,10 @@ const CourseGrade =({ courses })=>{
 
     return (
         <div>
-            {calculate().toFixed(2)}
+            <Typography variant="h3" component="h3">
+            GPA: {calculate().toFixed(2)}
+            </Typography>
+            
         </div>
     )
 }
