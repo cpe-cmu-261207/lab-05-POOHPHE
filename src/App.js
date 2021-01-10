@@ -9,7 +9,7 @@ export const CourseContext = createContext({});
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  //fetch todos from localstroage
+  //fetch course from localstroage
   function fetchCourse() {
     const localCourse = localStorage.getItem("myCourse");
     if (localCourse) {
@@ -20,22 +20,43 @@ function App() {
     }
   }
 
-  //use function fetchTodos() when page refresh and rendered
+  //use function fetchCourse() when page refresh and rendered
   useEffect(fetchCourse, []);
 
   useEffect(() => {
     localStorage.setItem("myCourse", JSON.stringify(state.myCourse));
-  }, [state.myCourse]); //run when state.myTodos change
+  }, [state.myCourse]); //run when state.myCourse change
+
 
   return (
     <CourseContext.Provider value={{ state, dispatch }}>
       <div >
-        <h1 s>Todos</h1>
+        
 
-        <CourseLists courses={state.myCourse} />
+        <div class="grid-container">
+          <div class="item1"><h1 s>GPA Calculator</h1></div>
+          <div class="item2">
+            <CourseForm />
+            <CourseGrade courses={state.myCourse}/>
+          </div>
+          <div class="item3">
+            <CourseLists courses={state.myCourse} />
+          </div>  
+          
+        </div>
+        
+          
 
-        <CourseForm />
-        <CourseGrade courses={state.myCourse}/>
+
+          
+        
+        
+      
+        
+
+        
+        
+        
       </div>
     </CourseContext.Provider>
   );

@@ -1,4 +1,7 @@
-import CourseCard from "./CourseCard";
+
+import CourseCard from "./CourseCard";  
+
+
 
 const CourseLists = ({ courses }) => (
   <div>

@@ -2,94 +2,66 @@ import { useContext, useState, useReducer } from "react";
 import { CourseContext } from "../App";
 import { CREDITS } from "../utils/credits";
 import { GRADES } from "../utils/grades";
+import {course_reducer, CourseJSON} from "../utils/add-course"
 
 const CourseForm = () => {
   
   const { dispatch } = useContext(CourseContext);
 
-  const CourseJSON = {id:"", name:"", credit:1, grade: { name: "A",    value: 4,  }}
-  function course_reducer(state, action){
-    
-    switch(action.type){
-      case "SET_NAME":
-        return {
-          ...state, name: action.name,
-          id: state.id,
-          credit: state.credit,
-          grade: state.grade
-        }
-      case "SET_ID":
-        return {
-          ...state, id: action.id,
-          credit: state.credit,
-          grade: state.grade,
-          name: state.name
-        }
-      case "SET_CREDIT":
-        return {
-          ...state, credit: action.credit,
-          grade: state.grade,
-          name: state.name,
-          id: state.id
-        }
-      case "SET_GRADE":
-        return {
-          ...state, grade: JSON.parse(action.grade),
-          name: state.name,
-          id: state.id,
-          credit: state.credit
-        }
-      default:
-        throw new Error()
-    }
-  }
   const [course, set_course] = useReducer(course_reducer, CourseJSON)
-
-
-
 
   const addCourse = (e) => {
     e.preventDefault();
     if (course.name !== "" && course.id !== "") {
-      //add new todo to state
-      
-      dispatch({
-        type: "ADD_COURSE",
-        payload: course,
-      });
+      //add new course to state
+      if(course.subid.length  < 6){
+
+      }else if(isNaN(course.subid)){
+
+      }else{
+        dispatch({
+          type: "ADD_COURSE",
+          payload: course,
+        });
       //clear input
-      console.log(course)
-      set_course({
-        type: "SET_NAME",
-        name: "",
-      })
-      set_course({
-        type: "SET_ID",
-        id: "",
-      })
+        console.log(course)
+        set_course({
+          type: "SET_NAME",
+          name: "",
+        })
+        set_course({
+          type: "SET_SUB_ID",
+          subid: "",
+        })
+      }
+      
     } else {
-      alert("please add some todo ?");
+      alert("please add some course ?");
     }
   };
 
   return (
     <form onSubmit={addCourse} >
       <div >
+        <h2>Add Course</h2>
         <div >
-          <input
+          
+            <input 
             type="text"
-            
-            placeholder="new todo"
+            placeholder="Subject Name"
             value={course.name}
             onChange={(event) => set_course({type: "SET_NAME", name: event.target.value})}
           />
+
+          <br/>
           <input
-            type="text"
-            
-            placeholder="new todo"
-            value={course.id}
-            onChange={(event) => set_course({type: "SET_ID", id: event.target.value})}
+            maxlength='6'
+            type="text"     
+            placeholder="Subject ID"
+            value={course.subid}
+            onChange={(event) => set_course({type: "SET_SUB_ID", subid: event.target.value})}
           />
+          <br/>
           <select  onChange={e => {set_course({type: "SET_GRADE", grade: e.target.value});}}>
             {
               GRADES.map(e => (
@@ -97,6 +69,7 @@ const CourseForm = () => {
               ))
             }
           </select>
+          <br/>
           <select value={course.credit} onChange={e => set_course({type: "SET_CREDIT", credit: e.target.value})}>
             {
               CREDITS.map(e => (
@@ -105,12 +78,9 @@ const CourseForm = () => {
             }
           </select>
         </div>
-
-
         <div>
           <button
             type="submit"
-            
           >
             ADD
           </button>

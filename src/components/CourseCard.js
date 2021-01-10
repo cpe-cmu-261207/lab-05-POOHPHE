@@ -14,17 +14,17 @@ const CourseCard = ({ props }) => {
 
   return (
     <div >
-      <div >
-        <p>Name: {props.name}</p><p>ID: {props.id}</p><p>Credit: {props.credit}</p><p>Grade: {props.grade.name}</p>
-      </div>
-
-      <div >
+      
+      <div>ID: {props.subid}</div>
+      <div class="flex-container">
+        <div>Name: {props.name}</div>
+        <div>Credit: {props.credit}</div>
+        <div>Grade: {props.grade.name}</div>
         <button
           onClick={onRemoveCourse}
-          
         >
           X
-        </button>
+        </button> 
       </div>
     </div>
   );
