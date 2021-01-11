@@ -58,7 +58,7 @@ function App() {
   return (
     <CourseContext.Provider value={{ state, dispatch }}>
       <div >
-      <ParticlesBg color="#ffffff" type="cobweb" bg={true}/>
+      <ParticlesBg color="#ffffff" num={150} type="cobweb" bg={true}/>
 
         <h1 class="glow">
           GPA CALCULATOR
